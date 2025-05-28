@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+@layer utilities {
+  @keyframes marquee {
+    0% { transform: translateX(0%); }     /* Start from the right (or just off-screen right) */
+    100% { transform: translateX(-100%); } /* Move completely to the left */
+  }
+
+  .animate-marquee {
+    /* animation: marquee 30s linear infinite; */ /* Adjust duration as needed */
+    /* For a longer string, you might need a longer duration e.g., 60s or more */
+    animation: marquee 45s linear infinite;
+    /* white-space: nowrap; will be on the child span */
+    /* display: inline-block; or flex on parent is needed */
+  }
+}
