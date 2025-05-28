@@ -1,7 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import './globals.css'; // Assuming globals.css is in the app directory
+import '@/app/globals.css'; // If globals.css is in src/app
 import Header from '@/components/header/Header';
 import Footer from '@/components/footer/Footer';
 
