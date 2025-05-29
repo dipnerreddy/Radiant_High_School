@@ -13,20 +13,20 @@ interface NewsArticle {
   Caption: string;
   ImageUrl: string;
   DatePublished: string;
-  FullContent?: string; // Make sure this matches your sheet
+  FullContent?: string;
   Category?: string;
 }
 
 const SingleNewsPage = () => {
-  const params = useParams(); // { id: '1' }
-  const articleId = params.id as string; // Get the id from the URL
+  const params = useParams<{ id: string }>();
+  const articleId = params?.id;
 
   const [article, setArticle] = useState<NewsArticle | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!articleId) return; // Don't fetch if id is not available yet
+    if (!articleId) return; // Don't fetch if id is not available
 
     const fetchArticleData = async () => {
       setLoading(true);
@@ -72,7 +72,11 @@ const SingleNewsPage = () => {
     };
 
     fetchArticleData();
-  }, [articleId]); // Re-fetch if articleId changes
+  }, [articleId]);
+
+  if (!articleId) {
+    return <div className="text-center text-red-500 py-20">Invalid or missing article ID.</div>;
+  }
 
   if (loading) {
     return <div className="text-center py-20">Loading article...</div>;
@@ -83,11 +87,9 @@ const SingleNewsPage = () => {
   }
 
   if (!article) {
-    // This case should ideally be caught by the error state if not found
     return <div className="text-center py-20">Article not found.</div>;
   }
 
-  // Use article.FullContent if available, otherwise fallback to article.Caption
   const displayContent = article.FullContent || article.Caption;
 
   return (
@@ -98,14 +100,18 @@ const SingleNewsPage = () => {
             <Link href="/news" className="text-blue-600 hover:underline mb-4 inline-block">
               ← Back to News
             </Link>
-            {article.category && (
-              <p className="text-sm text-indigo-600 font-semibold mb-2">{article.category}</p>
+            {article.Category && (
+              <p className="text-sm text-indigo-600 font-semibold mb-2">{article.Category}</p>
             )}
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 mb-3">
               {article.Headline}
             </h1>
             <p className="text-md text-slate-500">
-              Published on: {new Date(article.DatePublished).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              Published on: {new Date(article.DatePublished).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
             </p>
           </header>
 
@@ -116,26 +122,16 @@ const SingleNewsPage = () => {
                 alt={article.Headline}
                 layout="fill"
                 objectFit="cover"
-                priority // This image is likely important for LCP on this page
+                priority
               />
             </div>
           )}
 
-          {/* For rendering HTML content safely, you'd use dangerouslySetInnerHTML or a markdown parser */}
-          {/* For plain text: */}
           <div className="prose prose-lg max-w-none text-slate-700 leading-relaxed">
-            {/* Split content by newlines and render as paragraphs if it's plain text with line breaks */}
             {displayContent.split('\n').map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
           </div>
-          {/* If FullContent can contain HTML, and you trust the source:
-          <div
-            className="prose prose-lg max-w-none text-slate-700 leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: displayContent }}
-          />
-          Be very careful with dangerouslySetInnerHTML if the content isn't sanitized.
-          */}
         </article>
       </div>
     </div>

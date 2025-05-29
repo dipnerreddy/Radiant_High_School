@@ -70,7 +70,7 @@ const NewsList = () => {
 
 
   if (loading) {
-    return <p className="text-center text-lg py-10">Loading news...</p>;
+    return <p className="text-center text-black text-lg py-10">Loading news...</p>;
   }
 
   if (error) {

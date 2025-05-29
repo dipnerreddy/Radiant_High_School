@@ -86,7 +86,7 @@ const AlumniDisplay = () => {
   }, [selectedYear, allAlumni]);
 
   if (loading) {
-    return <p className="text-center text-lg py-10">Loading alumni data...</p>;
+    return <p className="text-center text-black text-lg py-10">Loading alumni data...</p>;
   }
 
   if (error) {

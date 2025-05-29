@@ -7,6 +7,18 @@ const config: Config = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [
+    // Add all the specific bg-color-xxx classes you intend to use from your CSV
+    'bg-blue-500',
+    'bg-green-500',
+    'bg-purple-500',
+    'bg-red-500',
+    'bg-yellow-500',
+    'bg-indigo-500',
+    'bg-pink-500',
+    'bg-teal-500',
+    // Add more as needed based on what you put in your Google Sheet
+  ],
   domains: [
       'images.unsplash.com',
     ],

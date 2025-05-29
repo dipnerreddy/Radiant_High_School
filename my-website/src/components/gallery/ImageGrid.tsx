@@ -64,7 +64,7 @@ const ImageGrid = () => {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-black-lg py-10">Loading gallery...</p>;
+    return <p className="text-center text-black text-black-lg py-10">Loading gallery...</p>;
   }
 
   if (error) {
